@@ -1,7 +1,7 @@
 import { Link, useLocation  } from "react-router-dom";
-import { useSidebar } from "../../hooks/useSideBar"
 import { ChevronDownIcon, GridIcon, HorizontalDotsIcon, UserCircleIcon } from "../../icons";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useSidebar } from "../../hooks/useSidebar";
 
 type NavItem = {
   name: string;

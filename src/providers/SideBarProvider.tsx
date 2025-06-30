@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react"
-import { SidebarContext } from "../context/SideBarContext";
+import { SidebarContext } from "../context/SidebarContext";
 
 interface Props {
   children: ReactNode;

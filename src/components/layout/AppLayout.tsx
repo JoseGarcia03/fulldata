@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { AppSidebar } from "./AppSidebar"
 import Backdrop from "./Backdrop"
 import AppHeader from "./AppHeader";
-import { useSidebar } from "../../hooks/useSideBar";
+import { useSidebar } from "../../hooks/useSidebar";
 
 export const AppLayout = () => {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
-import { useSidebar } from "../../hooks/useSideBar";
+import { useSidebar } from "../../hooks/useSidebar";
 import { ThemeToggleButton } from "../common/ThemeToggleButton";
 import UserDropdown from "../header/UserDropdown";
 import { ChevronDownIcon, MenuIcon } from "../../icons";
