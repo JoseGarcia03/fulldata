@@ -1,4 +1,4 @@
-import { Route, BrowserRouter as Router } from "react-router-dom"
+import { Navigate, Route, BrowserRouter as Router } from "react-router-dom"
 import { RoutesWithNotFound } from "./RoutesWithNotFound"
 import { SignIn } from "../pages/auth/SignIn"
 import { SignUp } from "../pages/auth/SignUp"
@@ -38,6 +38,8 @@ export const AppRouter = () => {
   return (
     <Router>
       <RoutesWithNotFound>
+        <Route path="/" element={<Navigate to="/signin" />} />
+
         <Route element={<PublicGuard />}>
           <Route index path="/signin" element={<SignIn />}  />
           <Route path="/signup" element={<SignUp />}  />
