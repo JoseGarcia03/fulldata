@@ -4,7 +4,7 @@ import { InputField } from "./InputField";
 interface Props {
   id?: string;
   name?: string;
-  value?: string;
+  value?: string | number;
   showPassword: boolean;
   setShowPassword: (value: boolean) => void;
   placeholder?: string;
@@ -33,7 +33,7 @@ export const InputPassword = ({
       value={value}
       type={showPassword ? "text" : "password"}
       placeholder={placeholder}
-      autocomplete="new-password"
+      autocomplete="current-password"
       error={error}
       hint={hint}
       />

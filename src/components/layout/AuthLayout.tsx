@@ -1,7 +1,6 @@
 import type { ReactNode } from "react"
 import { GridShape } from "../common/GridShape";
 import { ThemeTogglerTwo } from "../common/ThemeTogglerTwo";
-import { Toaster } from "react-hot-toast";
 
 interface Props {
   children: ReactNode;
@@ -35,7 +34,6 @@ export const AuthLayout = ({ children }: Props) => {
           </div>
         </div>
       </div>
-      <Toaster position="top-right" reverseOrder={false} toastOptions={{ duration: 5000 }} />
     </>
   )
 }

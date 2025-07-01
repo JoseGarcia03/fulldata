@@ -8,6 +8,11 @@ import { ReactComponent as UserCircleIcon } from "./user-circle.svg?react";
 import { ReactComponent as ChevronDownIcon } from "./chevron-down.svg?react";
 import { ReactComponent as LogoutIcon } from "./logout.svg?react";
 import { ReactComponent as MenuIcon } from "./menu.svg?react";
+import { ReactComponent as PlusIcon } from "./plus.svg?react";
+import { ReactComponent as CopyIcon } from "./copy.svg?react";
+import { ReactComponent as TrashIcon } from "./trash.svg?react";
+import { ReactComponent as MailIcon } from "./mail.svg?react";
+import { ReactComponent as PhoneIcon } from "./phone.svg?react";
 
 export {
   SunIcon,
@@ -19,5 +24,10 @@ export {
   UserCircleIcon,
   ChevronDownIcon,
   LogoutIcon,
-  MenuIcon
+  MenuIcon,
+  PlusIcon,
+  CopyIcon,
+  TrashIcon,
+  MailIcon,
+  PhoneIcon
 }

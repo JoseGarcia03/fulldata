@@ -11,6 +11,9 @@ import { onAuthStateChanged } from "firebase/auth"
 import { auth, db } from "../firebase/firebase-config"
 import { doc, getDoc } from "firebase/firestore"
 import { clearUser, setUser } from "../redux/slices/authSlice"
+import { Contractors } from "../pages/contractor/Contractors"
+import { Toaster } from "react-hot-toast"
+import { AddContractor } from "../pages/contractor/AddContractor"
 
 export const AppRouter = () => {
     const dispatch = useAppDispatch();
@@ -36,21 +39,26 @@ export const AppRouter = () => {
   }, [dispatch])
 
   return (
-    <Router>
-      <RoutesWithNotFound>
-        <Route path="/" element={<Navigate to="/signin" />} />
+    <>
+      <Router>
+        <RoutesWithNotFound>
+          <Route path="/" element={<Navigate to="/signin" />} />
 
-        <Route element={<PublicGuard />}>
-          <Route index path="/signin" element={<SignIn />}  />
-          <Route path="/signup" element={<SignUp />}  />
-        </Route>
-
-        <Route element={<AuthGuard />}>
-          <Route element={<AppLayout />}>
-            <Route path="/dashboard" element={<h1>Hola Mundo</h1>} />
+          <Route element={<PublicGuard />}>
+            <Route index path="/signin" element={<SignIn />}  />
+            <Route path="/signup" element={<SignUp />}  />
           </Route>
-        </Route>
-      </RoutesWithNotFound>
-    </Router>
+
+          <Route element={<AuthGuard />}>
+            <Route element={<AppLayout />}>
+              <Route path="/dashboard" element={<h1 className="text-base font-medium text-gray-800 dark:text-white/90">Bienvenido...</h1>} />
+              <Route path="/contractors" element={<Contractors />} />
+              <Route path="/contractors/add-contractor" element={<AddContractor />} />
+            </Route>
+          </Route>
+        </RoutesWithNotFound>
+      </Router>
+      <Toaster position="top-center" reverseOrder={false} toastOptions={{ duration: 3000 }} containerStyle={{ zIndex: 999999 }} />
+    </>
   )
 }
