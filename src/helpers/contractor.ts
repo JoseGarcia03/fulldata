@@ -12,7 +12,7 @@ interface ContractorProps {
   isLeaderCrew: boolean;
   crew: string;
   createdBy: string;
-  createdAt: string;
+  createdAt?: string;
 }
 
 export const getContractors = createAsyncThunk("contractors/getContractors", async (_, { rejectWithValue }) => {

@@ -9,7 +9,7 @@ interface ContractorProps {
   phone: string;
   isLeaderCrew: boolean;
   crew: string;
-  createdAt: string;
+  createdAt?: string;
 }
 
 const initialState = {
