@@ -4,43 +4,6 @@ import { Table, TableBody, TableCell, TableHeader, TableRow } from "../../ui/tab
 import { CopyIcon, PlusIcon, TrashIcon } from "../../../icons";
 import { useAppSelector } from "../../../hooks/useRedux";
 
-interface Contractor {
-  id: number;
-  contractor: {
-    image: string;
-    name: string;
-    role: string;
-    email: string;
-    password: string;
-  };
-  crew: string;
-}
-
-const tableData: Contractor[] = [
-  {
-    id: 1,
-    contractor: {
-      image: "https://cdn-icons-png.flaticon.com/512/5364/5364020.png",
-      name: "Jose Garcia",
-      role: "Lider",
-      email: "josegarcia@fulldata.com",
-      password: "change_me"
-    },
-    crew: "Jose",
-  },
-  {
-    id: 2,
-    contractor: {
-      image: "https://cdn-icons-png.flaticon.com/512/5364/5364020.png",
-      name: "Jhon Rambo",
-      role: "Tecnico",
-      email: "jhonrambo@fulldata.com",
-      password: "change_me"
-    },
-    crew: "Jose",
-  }
-];
-
 export const ContractorTable = () => {
   const contractors = useAppSelector( state => state.contractors);
 
