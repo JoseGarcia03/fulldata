@@ -14,7 +14,7 @@ interface registerProps {
 export const registerWithEmailAndPassword = createAsyncThunk('admin/register', async ({displayName, email, password, isAdmin}: registerProps, { rejectWithValue }) => {
   try {
     // Crear el usuario con Auth
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    await createUserWithEmailAndPassword(auth, email, password);
     // Actualizar displayName en Auth
     if (auth.currentUser) {
       await updateProfile(auth.currentUser, { displayName })
@@ -26,16 +26,20 @@ export const registerWithEmailAndPassword = createAsyncThunk('admin/register', a
       email,
       displayName,
       isAdmin,
-      createAt: serverTimestamp()
+      createdAt: serverTimestamp()
     }
     await setDoc(doc(db, "usuarios", userData.uid), userData);
 
     return {
-      uid: userCredential.user.uid,
+      uid: userData.uid,
       email,
       displayName,
       isAdmin,
-      createdAt: new Date().toISOString()
+      isLeaderCrew: false,
+      password: "",
+      phone: "",
+      createdBy: "",
+      createdAt: userData.createdAt
     }
   } catch (error) {
     if (error instanceof FirebaseError) {
@@ -58,23 +62,47 @@ export const loginWithEmailAndPassword = createAsyncThunk('user/login', async ({
     // Autenticar al usuario
     const userCredentials = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredentials.user;
-    // Buscar los datos adicionales en Firestore
-    const userDocRef = doc(db, "usuarios", user.uid);
-    const userDoc = await getDoc(userDocRef);
 
-    if (!userDoc.exists()) {
-      return rejectWithValue("Los datos del usuario no existen en Firestore.");
+    // Buscar los datos en coleccion usuarios
+    const userRef = doc(db, "usuarios", user.uid);
+    const userSnap = await getDoc(userRef);
+    if (userSnap.exists()) {
+      const data = userSnap.data();
+      return {
+        uid: data.uid,
+        displayName: data.displayName,
+        email: data.email,
+        isAdmin: data.isAdmin,
+        isLeaderCrew: data.isLeaderCrew || false,
+        password: data.password,
+        phone: data.phone,
+        createdBy: data.createBy,
+        createdAt: data.createdAt.toDate().toISOString(),
+      };
     }
-    const firestoreData = userDoc.data();
-    // Devolver los datos del usuario
-    return {
-      uid: user.uid,
-      displayName: user.displayName as string,
-      email: user.email as string,
-      isAdmin: firestoreData.isAdmin
+
+    // Buscar los datos en coleccion contratistas
+    const contractorRef = doc(db, "contratistas", user.uid);
+    const contractorSnap = await getDoc(contractorRef);
+    if (contractorSnap.exists()) {
+      const data = contractorSnap.data();
+      return {
+        uid: data.uid,
+        displayName: data.displayName,
+        email: data.email,
+        isAdmin: false,
+        isLeaderCrew: data.isLeaderCrew || false,
+        password: data.password,
+        phone: data.phone,
+        createdBy: data.createdBy,
+        createdAt: data.createdAt.toDate().toISOString(),
+      };
     }
+
+    return rejectWithValue("El usuario no está registrado como admin ni contratista.");
 
   } catch (error) {
+    console.log(error)
     if (error instanceof FirebaseError) {
       return rejectWithValue(error.code);
     }

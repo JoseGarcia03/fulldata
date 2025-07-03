@@ -18,7 +18,7 @@ const isPhone = /^[0-9]{10,15}$/;
 export const FormContractor = () => {
   const contractors = useAppSelector((state) => state.contractors);
   const { values, register, validate, errors, setFieldValue } = useForm({
-    name: "",
+    displayName: "",
     email: "",
     password: "",
     phone: "",
@@ -32,7 +32,7 @@ export const FormContractor = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const isValid = validate({
-      name: {
+      displayName: {
         required: true,
         message: "El nombre es obligatorio.",
       },
@@ -59,7 +59,7 @@ export const FormContractor = () => {
           registerContractor({
             ...values,
             createdBy: auth.currentUser?.uid || "",
-            crew: values.isLeaderCrew ? values.name : "",
+            crew: values.isLeaderCrew ? values.displayName : "",
           })
         ).unwrap().then(() => navigate("/contractors")),
         {
@@ -86,9 +86,9 @@ export const FormContractor = () => {
             id="name"
             type="text"
             placeholder="John Doe"
-            hint={errors.name}
-            error={!!errors.name}
-            {...register("name")}
+            hint={errors.displayName}
+            error={!!errors.displayName}
+            {...register("displayName")}
           />
         </div>
       </div>

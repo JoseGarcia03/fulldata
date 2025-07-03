@@ -6,6 +6,10 @@ interface AuthState {
   displayName: string;
   email: string;
   isAdmin: boolean;
+  isLeaderCrew: boolean;
+  password?: string;
+  phone?: string;
+  createdBy?: string;
   createdAt: string;
   loading: boolean;
   verifying: boolean;
@@ -17,6 +21,7 @@ const initialState: AuthState = {
   displayName: "",
   email: "",
   isAdmin: false,
+  isLeaderCrew: false,
   createdAt: "",
   loading: false,
   verifying: true,
@@ -32,6 +37,10 @@ export const AuthSlice = createSlice({
       state.displayName = action.payload.displayName;
       state.email = action.payload.email;
       state.isAdmin = action.payload.isAdmin;
+      state.isLeaderCrew = action.payload.isLeaderCrew || false;
+      state.password = action.payload.password || "";
+      state.phone = action.payload.phone || "";
+      state.createdBy = action.payload.createdBy || "";
       state.createdAt = action.payload.createdAt;
       state.loading = false;
       state.verifying = false;
@@ -42,6 +51,10 @@ export const AuthSlice = createSlice({
       state.displayName = "";
       state.email = "";
       state.isAdmin = false;
+      state.isLeaderCrew = false;
+      state.password = "";
+      state.phone = "";
+      state.createdBy = "";
       state.createdAt = "";
       state.loading = false;
       state.verifying = false;
@@ -71,9 +84,16 @@ export const AuthSlice = createSlice({
       state.displayName = action.payload.displayName;
       state.email = action.payload.email;
       state.isAdmin = action.payload.isAdmin;
+      state.isLeaderCrew = action.payload.isLeaderCrew || false;
+      state.password = action.payload.password;
+      state.phone = action.payload.phone;
+      state.createdBy = action.payload.createdBy;
+      state.createdAt = action.payload.createdAt;
+      state.verifying = false;
       state.loading = false;
     })
     builder.addCase(loginWithEmailAndPassword.rejected, (state, action) => {
+      state.verifying = false;
       state.loading = false;
       state.error = action.payload as string;
     })
@@ -85,8 +105,13 @@ export const AuthSlice = createSlice({
       state.displayName = "";
       state.email = "";
       state.isAdmin = false;
+      state.isLeaderCrew = false;
+      state.password = "";
+      state.phone = "";
+      state.createdBy = "";
       state.createdAt = "";
       state.loading = false;
+      state.verifying = false;
       state.error = "";
     });
     builder.addCase(logout.rejected, (state, action) => {

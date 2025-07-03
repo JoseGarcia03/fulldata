@@ -16,10 +16,10 @@ export const createContractor = onCall(async (request) => {
     );
   }
 
-  const { name, email, phone, password, isLeaderCrew, crew, createdBy } = data;
+  const { displayName, email, phone, password, isLeaderCrew, crew, createdBy } = data;
 
   // Validación de campos requeridos
-  if (!name || !email || !password) {
+  if (!displayName || !email || !password) {
     throw new HttpsError(
       "invalid-argument",
       "Faltan campos obligatorios: nombre, correo o contraseña."
@@ -80,7 +80,7 @@ export const createContractor = onCall(async (request) => {
     newUser = await admin.auth().createUser({
       email,
       password,
-      displayName: name,
+      displayName,
     });
   } catch (err: any) {
     if (err.code === "auth/email-already-exists") {
@@ -105,8 +105,9 @@ export const createContractor = onCall(async (request) => {
 
   // Guardar información del contratista en Firestore
   await admin.firestore().collection("contratistas").doc(newUser.uid).set({
+    uid: newUser.uid,
     email,
-    name,
+    displayName,
     phone,
     isLeaderCrew,
     crew: label.charAt(0).toUpperCase() + label.slice(1),

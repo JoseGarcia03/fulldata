@@ -5,7 +5,8 @@ import { FirebaseError } from "firebase/app";
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 
 interface ContractorProps {
-  name: string;
+  uid?: string;
+  displayName: string;
   email: string;
   password: string;
   phone: string;
@@ -28,7 +29,7 @@ export const getContractors = createAsyncThunk("contractors/getContractors", asy
     return snapshot.docs.map(doc => {
       const data = doc.data();
       return {
-        id: doc.id,
+        uid: data.uid,
         ...data,
         createdAt: data.createdAt?.toDate().toISOString() ?? null,
       };
@@ -42,7 +43,7 @@ export const getContractors = createAsyncThunk("contractors/getContractors", asy
 });
 
 export const registerContractor = createAsyncThunk("contractors/registerContractor", async ({
-  name,
+  displayName,
   email,
   password,
   phone,
@@ -52,7 +53,7 @@ export const registerContractor = createAsyncThunk("contractors/registerContract
 }: ContractorProps, { rejectWithValue }) => {
     const createContractorCallable = httpsCallable(functions, "createContractor");
     try {
-      const result = await createContractorCallable({ name, email, password, phone, isLeaderCrew, crew, createdBy });
+      const result = await createContractorCallable({ displayName, email, password, phone, isLeaderCrew, crew, createdBy });
       return result.data;
     } catch (error) {
       if (error instanceof FirebaseError) {

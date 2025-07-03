@@ -21,18 +21,28 @@ export const AppRouter = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
-        const userDoc = await getDoc(doc(db, "usuarios", firebaseUser.uid));
-        const extra = userDoc.exists() ? userDoc.data() : null;
-        dispatch(setUser({
-          uid: firebaseUser.uid,
-          displayName: firebaseUser.displayName,
-          email: firebaseUser.email,
-          isAdmin: extra?.isAdmin,
-          createdAt: extra?.createdAt
-        }));
-      } else {
-        dispatch(clearUser());
+        const userSnap = await getDoc(doc(db, "usuarios", firebaseUser.uid));
+        if (userSnap.exists()) {
+          const data = userSnap.data();
+          dispatch(setUser({
+            uid: data.uid,
+            displayName: data.displayName,
+            email: data.email,
+            isAdmin: data.isAdmin,
+            isLeaderCrew: data.isLeaderCrew || false,
+            password: data.password || "",
+            phone: data.phone || "",
+            createdBy: data.createdBy || "",
+            verify: false,
+            createdAt: data?.createdAt?.toDate().toISOString(),
+          }));
+          return;
+        } else {
+          dispatch(clearUser());
+        }
       }
+
+      dispatch(clearUser());
     })
 
     return () => unsubscribe();

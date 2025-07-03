@@ -85,7 +85,7 @@ export const ContractorTable = () => {
 
           <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
             {contractors.contractors.map((contractor) => (
-              <TableRow key={contractor.id}>
+              <TableRow key={contractor.uid}>
                 <TableCell className="px-5 py-4 sm:px-6 text-start">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 overflow-hidden rounded-full">
@@ -93,12 +93,12 @@ export const ContractorTable = () => {
                         width={40}
                         height={40}
                         src="https://cdn-icons-png.flaticon.com/512/5364/5364020.png"
-                        alt={contractor.name}
+                        alt={contractor.displayName}
                       />
                     </div>
                     <div>
                       <span className="block font-medium text-gray-800 text-theme-sm dark:text-white/90">
-                        {contractor.name}
+                        {contractor.displayName}
                       </span>
                       <span className="block text-gray-500 text-theme-xs dark:text-gray-400">
                         {contractor.isLeaderCrew
@@ -127,7 +127,7 @@ export const ContractorTable = () => {
                 <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400 whitespace-nowrap">
                   <div className="flex items-center justify-center max-w-fit px-4">
                     <TrashIcon
-                      onClick={() => modalRef.current?.open(contractor.id, contractor.isLeaderCrew, contractor?.crew)}
+                      onClick={() => modalRef.current?.open(contractor.uid, contractor.isLeaderCrew, contractor?.crew)}
                       width="20"
                       height="20"
                       className="cursor-pointer hover:text-error-500 dark:hover:text-error-500 text-gray-700 dark:text-gray-400"
