@@ -19,6 +19,7 @@ export const registerWithEmailAndPassword = createAsyncThunk('admin/register', a
     if (auth.currentUser) {
       await updateProfile(auth.currentUser, { displayName })
     }
+
     // Crear documento en Firestore
     const userData = {
       uid: auth.currentUser?.uid as string,

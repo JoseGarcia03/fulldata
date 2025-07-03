@@ -13,6 +13,7 @@ import { ReactComponent as CopyIcon } from "./copy.svg?react";
 import { ReactComponent as TrashIcon } from "./trash.svg?react";
 import { ReactComponent as MailIcon } from "./mail.svg?react";
 import { ReactComponent as PhoneIcon } from "./phone.svg?react";
+import { ReactComponent as ExclamationTrianguleIcon } from "./exclamation-triangle.svg?react";
 
 export {
   SunIcon,
@@ -29,5 +30,6 @@ export {
   CopyIcon,
   TrashIcon,
   MailIcon,
-  PhoneIcon
+  PhoneIcon,
+  ExclamationTrianguleIcon,
 }

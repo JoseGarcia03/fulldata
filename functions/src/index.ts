@@ -119,3 +119,23 @@ export const createContractor = onCall(async (request) => {
 
   return { success: true, uid: newUser.uid };
 });
+
+
+export const deleteAuthContractor = onCall(async (request) => {
+  const { auth, data } = request;
+
+    // Verificación de autenticación
+  if (!auth) {
+    throw new HttpsError(
+      "unauthenticated",
+      "Debes iniciar sesión para realizar esta acción."
+    );
+  }
+
+  try {
+    await admin.auth().deleteUser(data.uid);
+    return { message: `Usuario ${data.uid} eliminado de Firebase Auth.` };
+  } catch (error) {
+    throw new HttpsError('internal', 'No se pudo eliminar el usuario.');
+  }
+})

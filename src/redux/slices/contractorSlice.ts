@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getContractors, registerContractor } from "../../helpers/contractor";
+import { deleteContractor, getContractors, registerContractor } from "../../helpers/contractor";
 
 interface ContractorProps {
   id: string;
@@ -45,6 +45,19 @@ export const ContractorsSlice = createSlice({
       state.error = "";
     })
     builder.addCase(getContractors.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    })
+    builder.addCase(deleteContractor.pending, (state) => {
+      state.loading = true;
+      state.error = "";
+    })
+    builder.addCase(deleteContractor.fulfilled, (state, action) => {
+      state.loading = false;
+      state.contractors = state.contractors.filter(contractor => contractor.id !== action.meta.arg.id);
+      state.error = "";
+    })
+    builder.addCase(deleteContractor.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;
     })
