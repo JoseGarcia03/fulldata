@@ -66,13 +66,13 @@ export const ContractorTable = () => {
                 isHeader
                 className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
               >
-                Cuadrilla
+                Correo
               </TableCell>
               <TableCell
                 isHeader
                 className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
               >
-                Credenciales
+                Contraseña
               </TableCell>
               <TableCell
                 isHeader
@@ -109,14 +109,15 @@ export const ContractorTable = () => {
                   </div>
                 </TableCell>
                 <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                  {contractor.crew}
-                </TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                   <div>
                     <span className="flex gap-x-3 font-medium text-gray-800 text-theme-sm dark:text-white/90">
                       {contractor.email}{" "}
                       <CopyIcon className="size-5 cursor-pointer" onClick={() => copyToClipboard(contractor.email)} />
                     </span>
+                  </div>
+                </TableCell>
+                <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                  <div>
                     <span className="flex gap-x-3 items-center font-medium text-gray-800 text-theme-sm dark:text-white/90 ">
                       {contractor.password}{" "}
                       <CopyIcon className="size-5 cursor-pointer" onClick={() => copyToClipboard(contractor.password)} />
@@ -126,7 +127,7 @@ export const ContractorTable = () => {
                 <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400 whitespace-nowrap">
                   <div className="flex items-center justify-center max-w-fit px-4">
                     <TrashIcon
-                      onClick={() => modalRef.current?.open(contractor.id, contractor.isLeaderCrew, contractor.crew)}
+                      onClick={() => modalRef.current?.open(contractor.id, contractor.isLeaderCrew, contractor?.crew)}
                       width="20"
                       height="20"
                       className="cursor-pointer hover:text-error-500 dark:hover:text-error-500 text-gray-700 dark:text-gray-400"

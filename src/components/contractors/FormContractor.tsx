@@ -3,7 +3,6 @@ import { MailIcon, PhoneIcon } from "../../icons";
 import { InputField } from "../form/input/InputField";
 import { InputPassword } from "../form/input/InputPassword";
 import { Label } from "../form/Label";
-import Select from "../form/Select";
 import Switch from "../form/switch/Switch";
 import Button from "../ui/button/Button";
 import { registerContractor } from "../../helpers/contractor";
@@ -18,7 +17,6 @@ const isPhone = /^[0-9]{10,15}$/;
 
 export const FormContractor = () => {
   const contractors = useAppSelector((state) => state.contractors);
-  const crews = useAppSelector((state) => state.crews);
   const { values, register, validate, errors, setFieldValue } = useForm({
     name: "",
     email: "",
@@ -52,11 +50,7 @@ export const FormContractor = () => {
         required: false,
         pattern: isPhone,
         message: "El número de teléfono debe contener entre 10 y 15 dígitos.",
-      },
-      crew: {
-        required: values.isLeaderCrew ? false : true,
-        message: "Selecciona una cuadrilla.",
-      },
+      }
     });
 
     if (isValid) {
@@ -65,7 +59,7 @@ export const FormContractor = () => {
           registerContractor({
             ...values,
             createdBy: auth.currentUser?.uid || "",
-            crew: values.isLeaderCrew ? values.name : values.crew,
+            crew: values.isLeaderCrew ? values.name : "",
           })
         ).unwrap().then(() => navigate("/contractors")),
         {
@@ -153,24 +147,12 @@ export const FormContractor = () => {
           </span>
         </div>
       </div>
-      <div className="flex flex-col gap-10">
+      <div>
         <Switch
           label="¿Eres lider de cuadrilla?"
           defaultChecked={!!values.isLeaderCrew}
           onChange={(checked) => setFieldValue("isLeaderCrew", checked)}
         />
-        <div className={`${values.isLeaderCrew ? "hidden" : "block"} -mt-5`}>
-          <Label>Cruadrilla</Label>
-          <Select
-            options={crews.crews}
-            placeholder="Seleccione su cuadrilla"
-            className="dark:bg-dark-900"
-            onChange={(value) => setFieldValue("crew", value)}
-          />
-          {errors.crew && (
-            <p className={`mt-1.5 text-xs text-error-500`}>{errors.crew}</p>
-          )}
-        </div>
       </div>
       <div className="xl:col-span-2">
         <Button disabled={contractors.loading} type="submit">

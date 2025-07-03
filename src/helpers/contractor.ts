@@ -18,7 +18,7 @@ interface ContractorProps {
 export interface deleteCrewProps {
   id: string;
   isLeaderCrew: boolean;
-  crew: string;
+  crew?: string;
 }
 
 export const getContractors = createAsyncThunk("contractors/getContractors", async (_, { rejectWithValue }) => {
@@ -71,7 +71,7 @@ export const deleteContractor = createAsyncThunk("contractors/deleteContractor",
     const contractorRef = doc(db, "contratistas", data.id);
     await deleteDoc(contractorRef);
     // If the contractor is a leader of a crew, delete the crew document
-    if (data.isLeaderCrew) {
+    if (data.isLeaderCrew && data.crew) {
       const crewRef = doc(db, "cuadrillas", data.crew.toLocaleLowerCase());
       await deleteDoc(crewRef);
     }

@@ -9,7 +9,7 @@ import { createPortal } from "react-dom";
 import type { deleteCrewProps } from "../../helpers/contractor";
 
 export interface DeleteDialogRef {
-  open: (id: string, isLeaderCrew: boolean, crew: string) => void;
+  open: (id: string, isLeaderCrew: boolean, crew?: string) => void;
   close: () => void;
 }
 
@@ -23,7 +23,7 @@ export const DeleteDialog = forwardRef<DeleteDialogRef, Props>(
     const [contractor, setContractor] = useState<deleteCrewProps | null>(null);
 
     useImperativeHandle(ref, () => ({
-      open: (id: string, isLeaderCrew: boolean, crew: string) => {
+      open: (id: string, isLeaderCrew: boolean, crew?: string) => {
         setContractor({ id, isLeaderCrew, crew });
         setIsOpen(true);
       },

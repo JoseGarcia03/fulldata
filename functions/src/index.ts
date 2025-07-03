@@ -113,7 +113,6 @@ export const createContractor = onCall(async (request) => {
     //TODO: Encriptar la contraseña antes de guardarla
     password,
     createdBy,
-    isAdmin: false,
     createdAt: admin.firestore.FieldValue.serverTimestamp(),
   });
 

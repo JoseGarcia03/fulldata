@@ -1,17 +1,8 @@
-import { useEffect } from "react"
 import ComponentCard from "../../components/common/ComponentCard"
 import { PageMeta } from "../../components/common/PageMeta"
 import { FormContractor } from "../../components/contractors/FormContractor"
-import { useAppDispatch } from "../../hooks/useRedux"
-import { getCrews } from "../../helpers/crew"
 
 export const AddContractor = () => {
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(getCrews())
-  }, [dispatch])
-
   return (
     <>
       <PageMeta

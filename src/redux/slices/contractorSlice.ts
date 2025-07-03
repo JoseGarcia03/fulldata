@@ -8,7 +8,7 @@ interface ContractorProps {
   password: string;
   phone: string;
   isLeaderCrew: boolean;
-  crew: string;
+  crew?: string;
   createdAt?: string;
 }
 
