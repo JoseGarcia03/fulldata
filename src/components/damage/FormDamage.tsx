@@ -7,7 +7,7 @@ import { Label } from "../form/Label";
 import Select from "../form/Select";
 import Button from "../ui/button/Button";
 import TextArea from "../form/input/TextArea";
-import { PlusIcon } from "../../icons";
+import { MaterialSelector, type MaterialItem } from "./MaterialSelector";
 
 export const FormDamage = () => {
   const crews = useAppSelector((state) => state.crews);
@@ -18,6 +18,7 @@ export const FormDamage = () => {
     visitDate: "",
     contractorName: auth.displayName,
     comments: "",
+    materialsUsed: [] as MaterialItem[]
   });
 
   useEffect(() => {
@@ -74,13 +75,7 @@ export const FormDamage = () => {
         />
       </div>
       <div className="xl:col-span-2">
-        <Button
-          size="sm"
-          variant="outline"
-          startIcon={<PlusIcon className="size-6" />}
-        >
-          Agregar Material
-        </Button>
+        <MaterialSelector onChange={(items) => setFieldValue("materialsUsed", items)} />
       </div>
       <div className="xl:col-span-2">
         <Button type="submit" className="float-right">
