@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { deleteContractor, getContractors, registerContractor } from "../../helpers/contractor";
 
-interface ContractorProps {
+export interface ContractorProps {
   uid: string;
   displayName: string;
   email: string;

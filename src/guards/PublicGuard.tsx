@@ -10,5 +10,5 @@ export const PublicGuard = () => {
       </div>
   }
 
-  return !auth.email ? <Outlet /> : <Navigate to="/dashboard" replace />
+  return !auth.email ? <Outlet /> : <Navigate to={ auth.isAdmin ? "/dashboard" : "/damage" } replace />
 }

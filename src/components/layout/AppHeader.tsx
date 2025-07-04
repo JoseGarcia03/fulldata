@@ -4,11 +4,13 @@ import { useSidebar } from "../../hooks/useSidebar";
 import { ThemeToggleButton } from "../common/ThemeToggleButton";
 import UserDropdown from "../header/UserDropdown";
 import { ChevronDownIcon, MenuIcon } from "../../icons";
+import { useAppSelector } from "../../hooks/useRedux";
 
 const AppHeader: React.FC = () => {
+  const auth = useAppSelector((state) => state.auth);
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
 
-  const { isMobileOpen, toggleSidebar, toggleMobileSidebar } = useSidebar();
+  const { toggleSidebar, toggleMobileSidebar } = useSidebar();
 
   const handleToggle = () => {
     if (window.innerWidth >= 1024) {
@@ -48,15 +50,11 @@ const AppHeader: React.FC = () => {
             onClick={handleToggle}
             aria-label="Toggle Sidebar"
           >
-            {isMobileOpen ? (
-              <MenuIcon className="size-6" />
-            ) : (
-              <MenuIcon className="size-6" />
-            )}
+            <MenuIcon className="size-6" />
             {/* Cross Icon */}
           </button>
 
-          <Link to="/dashboard" className="lg:hidden">
+          <Link to={ auth.isAdmin ? "/dashboard" : "/tickets"} className="lg:hidden">
             <img
               className="dark:hidden max-w-36"
               src="../images/logo/fulldata-logo-blue.png"

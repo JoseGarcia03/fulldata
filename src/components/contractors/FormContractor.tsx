@@ -50,7 +50,7 @@ export const FormContractor = () => {
         required: false,
         pattern: isPhone,
         message: "El número de teléfono debe contener entre 10 y 15 dígitos.",
-      }
+      },
     });
 
     if (isValid) {
@@ -61,7 +61,9 @@ export const FormContractor = () => {
             createdBy: auth.currentUser?.uid || "",
             crew: values.isLeaderCrew ? values.displayName : "",
           })
-        ).unwrap().then(() => navigate("/contractors")),
+        )
+          .unwrap()
+          .then(() => navigate("/contractors")),
         {
           loading: "Registrando contratista...",
           success: "Contratista registrado exitosamente.",
@@ -78,19 +80,17 @@ export const FormContractor = () => {
       className="grid grid-cols-1 gap-6 xl:grid-cols-2"
     >
       <div>
-        <div>
-          <Label htmlFor="name">
-            Nombre<span className="text-error-500">*</span>{" "}
-          </Label>
-          <InputField
-            id="name"
-            type="text"
-            placeholder="John Doe"
-            hint={errors.displayName}
-            error={!!errors.displayName}
-            {...register("displayName")}
-          />
-        </div>
+        <Label htmlFor="name">
+          Nombre<span className="text-error-500">*</span>{" "}
+        </Label>
+        <InputField
+          id="name"
+          type="text"
+          placeholder="John Doe"
+          hint={errors.displayName}
+          error={!!errors.displayName}
+          {...register("displayName")}
+        />
       </div>
       <div>
         <Label>

@@ -1,10 +1,12 @@
 import { Link } from "react-router";
+import { useAppSelector } from "../../hooks/useRedux";
 
 interface BreadcrumbProps {
   pageTitle: string;
 }
 
 const PageBreadcrumb: React.FC<BreadcrumbProps> = ({ pageTitle }) => {
+  const auth = useAppSelector((state) => state.auth);
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
       <h2
@@ -20,7 +22,7 @@ const PageBreadcrumb: React.FC<BreadcrumbProps> = ({ pageTitle }) => {
               className="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400"
               to="/admin/dashboard"
             >
-              Dashboard
+              { auth.isAdmin ? "Dashboard" : "Inicio"  }
               <svg
                 className="stroke-current"
                 width="17"

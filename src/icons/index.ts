@@ -14,6 +14,8 @@ import { ReactComponent as TrashIcon } from "./trash.svg?react";
 import { ReactComponent as MailIcon } from "./mail.svg?react";
 import { ReactComponent as PhoneIcon } from "./phone.svg?react";
 import { ReactComponent as ExclamationTrianguleIcon } from "./exclamation-triangle.svg?react";
+import { ReactComponent as ListClipboardIcon } from "./list-clipboard.svg?react";
+import { ReactComponent as CalendarIcon } from "./calendar.svg?react";
 
 export {
   SunIcon,
@@ -32,4 +34,6 @@ export {
   MailIcon,
   PhoneIcon,
   ExclamationTrianguleIcon,
+  ListClipboardIcon,
+  CalendarIcon,
 }

@@ -1,7 +1,8 @@
 import { Link, useLocation  } from "react-router-dom";
-import { ChevronDownIcon, GridIcon, HorizontalDotsIcon, UserCircleIcon } from "../../icons";
+import { ChevronDownIcon, GridIcon, ListClipboardIcon, UserCircleIcon } from "../../icons";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSidebar } from "../../hooks/useSidebar";
+import { useAppSelector } from "../../hooks/useRedux";
 
 type NavItem = {
   name: string;
@@ -10,7 +11,7 @@ type NavItem = {
   subItems?: { name: string; path: string; pro?: boolean; new?: boolean }[];
 };
 
-const navItems: NavItem[] = [
+const navItemsAdmin: NavItem[] = [
   {
     icon: <GridIcon />,
     name: "Dashboard",
@@ -23,8 +24,17 @@ const navItems: NavItem[] = [
   }
 ];
 
+const navItemsContractor: NavItem[] = [
+  {
+    icon: <ListClipboardIcon />,
+    name: "Averias",
+    path:"/damage"
+  },
+];
+
 export const AppSidebar = () => {
-  const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
+  const auth = useAppSelector((state) => state.auth);
+  const { isExpanded, isMobileOpen, setIsHovered } = useSidebar();
   const location = useLocation();
 
   const [openSubmenu, setOpenSubmenu] = useState<{
@@ -44,7 +54,7 @@ export const AppSidebar = () => {
   useEffect(() => {
     let submenuMatched = false;
     ["main", "others"].forEach((menuType) => {
-      const items = menuType === "main" ? navItems : [];
+      const items = auth.isAdmin ? navItemsAdmin : navItemsContractor;
       items.forEach((nav, index) => {
         if (nav.subItems) {
           nav.subItems.forEach((subItem) => {
@@ -63,7 +73,7 @@ export const AppSidebar = () => {
     if (!submenuMatched) {
       setOpenSubmenu(null);
     }
-  }, [location, isActive]);
+  }, [location, isActive, auth.isAdmin]);
 
   useEffect(() => {
     if (openSubmenu !== null) {
@@ -101,11 +111,7 @@ export const AppSidebar = () => {
                 openSubmenu?.type === menuType && openSubmenu?.index === index
                   ? "menu-item-active"
                   : "menu-item-inactive"
-              } cursor-pointer ${
-                !isExpanded && !isHovered
-                  ? "lg:justify-center"
-                  : "lg:justify-start"
-              }`}
+              } cursor-pointer lg:justify-start`}
             >
               <span
                 className={`menu-item-icon-size  ${
@@ -116,10 +122,10 @@ export const AppSidebar = () => {
               >
                 {nav.icon}
               </span>
-              {(isExpanded || isHovered || isMobileOpen) && (
+              {(isExpanded || isMobileOpen) && (
                 <span className="menu-item-text">{nav.name}</span>
               )}
-              {(isExpanded || isHovered || isMobileOpen) && (
+              {(isExpanded || isMobileOpen) && (
                 <ChevronDownIcon
                   className={`ml-auto w-5 h-5 transition-transform duration-200 ${
                     openSubmenu?.type === menuType &&
@@ -147,13 +153,13 @@ export const AppSidebar = () => {
                 >
                   {nav.icon}
                 </span>
-                {(isExpanded || isHovered || isMobileOpen) && (
+                {(isExpanded || isMobileOpen) && (
                   <span className="menu-item-text">{nav.name}</span>
                 )}
               </Link>
             )
           )}
-          {nav.subItems && (isExpanded || isHovered || isMobileOpen) && (
+          {nav.subItems && (isExpanded || isMobileOpen) && (
             <div
               ref={(el) => {
                 subMenuRefs.current[`${menuType}-${index}`] = el;
@@ -219,22 +225,19 @@ export const AppSidebar = () => {
       ${
         isExpanded || isMobileOpen
           ? "w-[290px]"
-          : isHovered
-          ? "w-[290px]"
           : "w-[90px]"
       }
       ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
       lg:translate-x-0`}
-    onMouseEnter={() => !isExpanded && setIsHovered(true)}
     onMouseLeave={() => setIsHovered(false)}
     >
       <div
         className={`py-4 flex ${
-          !isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
+          !isExpanded ? "lg:justify-center" : "justify-start"
         }`}
       >
-        <Link to="/dashboard">
-        {isExpanded || isHovered || isMobileOpen ? (
+        <Link to={ auth.isAdmin ? "/dashboard" : "/tickets" } className="flex items-center gap-2">
+        {isExpanded || isMobileOpen ? (
             <>
               <img
                 className="dark:hidden"
@@ -267,18 +270,14 @@ export const AppSidebar = () => {
             <div>
               <h2
                 className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
-                  !isExpanded && !isHovered
+                  !isExpanded
                     ? "lg:justify-center"
                     : "justify-start"
                 }`}
               >
-                {isExpanded || isHovered || isMobileOpen ? (
-                  "Menu"
-                ) : (
-                  <HorizontalDotsIcon className="size-6" />
-                )}
+                Menu
               </h2>
-              {renderMenuItems(navItems, "main")}
+              {renderMenuItems(auth.isAdmin ? navItemsAdmin : navItemsContractor, "main")}
             </div>
           </div>
         </nav>

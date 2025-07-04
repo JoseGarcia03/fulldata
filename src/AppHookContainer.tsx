@@ -1,5 +1,5 @@
 import { HelmetProvider } from "react-helmet-async"
-import { AppRouter } from "./routes/AppRouter"
+import { AppRouter } from "./router/AppRouter"
 import { ThemeProvider } from "./providers/ThemeProvider"
 import { Provider } from "react-redux"
 import { store } from './redux/store';
