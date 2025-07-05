@@ -17,8 +17,8 @@ interface ContractorProps {
 }
 
 export interface deleteCrewProps {
-  id: string;
-  isLeaderCrew: boolean;
+  uid: string;
+  isLeaderCrew?: boolean;
   crew?: string;
 }
 
@@ -67,9 +67,9 @@ export const deleteContractor = createAsyncThunk("contractors/deleteContractor",
   const deleteAuthContractor = httpsCallable(functions, "deleteAuthContractor");
   try {
     // Delete the contractor from Firebase Auth
-    await deleteAuthContractor({ uid: data.id });
+    await deleteAuthContractor({ uid: data.uid });
     // Delete the contractor document from Firestore
-    const contractorRef = doc(db, "contratistas", data.id);
+    const contractorRef = doc(db, "contratistas", data.uid);
     await deleteDoc(contractorRef);
     // If the contractor is a leader of a crew, delete the crew document
     if (data.isLeaderCrew && data.crew) {

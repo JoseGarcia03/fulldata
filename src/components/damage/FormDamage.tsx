@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import { useForm } from "../../hooks/useForm";
-import { useAppSelector } from "../../hooks/useRedux";
+import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
 import DatePicker from "../form/date-picker";
 import { InputField } from "../form/input/InputField";
 import { Label } from "../form/Label";
@@ -8,25 +7,57 @@ import Select from "../form/Select";
 import Button from "../ui/button/Button";
 import TextArea from "../form/input/TextArea";
 import { MaterialSelector, type MaterialItem } from "./MaterialSelector";
+import type { FormEvent } from "react";
+import toast from "react-hot-toast";
+import { registerDamage } from "../../helpers/damage";
+import { useNavigate } from "react-router-dom";
 
 export const FormDamage = () => {
   const crews = useAppSelector((state) => state.crews);
   const auth = useAppSelector((state) => state.auth);
-  const { values, errors, register, setFieldValue } = useForm({
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { values, errors, register, setFieldValue, validate } = useForm({
     ticket: "",
     crew: "",
-    visitDate: "",
+    visitDate: new Date(),
     contractorName: auth.displayName,
     comments: "",
-    materialsUsed: [] as MaterialItem[]
+    materials: [] as MaterialItem[],
   });
 
-  useEffect(() => {
-    console.log(values);
-  }, [values]);
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const isValid = validate({
+      ticket: { required: true, message: "El número de ticket es obligatorio" },
+      visitDate: {
+        required: true,
+        message: "La fecha de visita es obligatoria",
+      },
+      crew: { required: true, message: "Debe seleccionar una cuadrilla" },
+    });
+
+    if (isValid) {
+      const payload = {
+        ...values,
+        createdAt: new Date().toISOString(),
+        visitDate: new Date(values.visitDate).toISOString(),
+      };
+
+      toast.promise(dispatch(registerDamage(payload)).unwrap().then(() => navigate("/damage")), {
+        loading: "Registrando avería…",
+        success: "Avería registrada correctamente",
+        error: (err) => err,
+      });
+    }
+  };
 
   return (
-    <form className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+    <form
+      className="grid grid-cols-1 gap-6 xl:grid-cols-2"
+      onSubmit={handleSubmit}
+    >
       <div>
         <Label htmlFor="ticket">
           Número de Ticket<span className="text-error-500">*</span>{" "}
@@ -40,15 +71,14 @@ export const FormDamage = () => {
           {...register("ticket")}
         />
       </div>
-      <div>
-        <Label htmlFor="visit-date">
+      <div className="relative z-10">
+        <Label htmlFor="visitDate">
           Fecha de visita<span className="text-error-500">*</span>{" "}
         </Label>
         <DatePicker
-          id="visit-date"
-          onChange={(value) =>
-            setFieldValue("visitDate", value.toLocaleString("es-CO"))
-          }
+          id="visitDate"
+          mode="single"
+          onChange={(value) => setFieldValue("visitDate", value[0])}
         />
       </div>
       <div>
@@ -75,7 +105,9 @@ export const FormDamage = () => {
         />
       </div>
       <div className="xl:col-span-2">
-        <MaterialSelector onChange={(items) => setFieldValue("materialsUsed", items)} />
+        <MaterialSelector
+          onChange={(items) => setFieldValue("materials", items)}
+        />
       </div>
       <div className="xl:col-span-2">
         <Button type="submit" className="float-right">

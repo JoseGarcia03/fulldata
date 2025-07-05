@@ -71,7 +71,7 @@ export const MaterialSelector = ({ onChange }: Props) => {
     <div className="space-y-4">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
         <div className="flex-1">
-          <Label>Material</Label>
+          <Label>Materiales</Label>
           <Select
             options={materialOptions}
             placeholder="Selecciona un material"

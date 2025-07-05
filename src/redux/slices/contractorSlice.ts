@@ -54,7 +54,7 @@ export const ContractorsSlice = createSlice({
     })
     builder.addCase(deleteContractor.fulfilled, (state, action) => {
       state.loading = false;
-      state.contractors = state.contractors.filter(contractor => contractor.uid !== action.meta.arg.id);
+      state.contractors = state.contractors.filter(contractor => contractor.uid !== action.meta.arg.uid);
       state.error = "";
     })
     builder.addCase(deleteContractor.rejected, (state, action) => {
