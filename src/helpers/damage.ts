@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase/firebase-config";
 import { FirebaseError } from "firebase/app";
+import type { RootState } from "../redux/store";
 
 interface DamageProps {
   ticket: string;
@@ -64,6 +65,7 @@ export const registerDamage = createAsyncThunk(
             ticket,
             visitDate,
             contractorName,
+            createdAt,
             ...m,
           });
         }
@@ -79,12 +81,21 @@ export const registerDamage = createAsyncThunk(
   }
 );
 
-export const getDamage = createAsyncThunk(
+export const getDamage = createAsyncThunk<
+  DamageProps[],
+  void,
+  { state: RootState; rejectValue: string }
+>(
   "damage/getDamage",
-  async (_, { rejectWithValue }) => {
+  async (_, { getState, rejectWithValue }) => {
+    const state = getState();
+    const displayName = state.auth.displayName;
+
     try {
       const damageRef = collection(db, "averias");
-      const damageSnap = await getDocs(damageRef);
+      const q = query(damageRef, where("contractorName", "==", displayName))
+      const damageSnap = await getDocs(q);
+
       return damageSnap.docs.map((doc) => {
         const data = doc.data();
         return data;

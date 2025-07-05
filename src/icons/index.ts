@@ -16,6 +16,10 @@ import { ReactComponent as PhoneIcon } from "./phone.svg?react";
 import { ReactComponent as ExclamationTrianguleIcon } from "./exclamation-triangle.svg?react";
 import { ReactComponent as ListClipboardIcon } from "./list-clipboard.svg?react";
 import { ReactComponent as CalendarIcon } from "./calendar.svg?react";
+import { ReactComponent as ArrowDownIcon } from "./arrow-down.svg?react";
+import { ReactComponent as ArrowUpIcon } from "./arrow-up.svg?react";
+import { ReactComponent as GroupIcon } from "./group.svg?react";
+import { ReactComponent as HatAdventureIcon } from "./hat-adventure.svg?react";
 
 export {
   SunIcon,
@@ -36,4 +40,8 @@ export {
   ExclamationTrianguleIcon,
   ListClipboardIcon,
   CalendarIcon,
+  ArrowDownIcon,
+  ArrowUpIcon,
+  GroupIcon,
+  HatAdventureIcon,
 }
