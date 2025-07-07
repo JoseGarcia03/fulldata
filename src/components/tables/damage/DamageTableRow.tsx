@@ -3,6 +3,7 @@ import { TrashIcon } from "../../../icons";
 import type { DamageProps } from "../../../redux/slices/damageSlice";
 import { formatDateDDMMYYYY } from "../../../helpers/date";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../../hooks/useRedux";
 
 interface Props {
   damage: DamageProps;
@@ -11,6 +12,7 @@ interface Props {
 
 export const DamageTableRow = ({ damage, onDelete }: Props) => {
   const navigate = useNavigate();
+  const auth = useAppSelector( state => state.auth );
 
   const handleClick = () => {
     navigate(`/damage/${damage.ticket}`, { state: damage });
@@ -38,7 +40,7 @@ export const DamageTableRow = ({ damage, onDelete }: Props) => {
           {damage.crew}
         </span>
       </TableCell>
-      <TableCell className="px-4 py-3 text-theme-sm text-gray-500 dark:text-gray-400">
+      {!auth.isAdmin && <TableCell className="px-4 py-3 text-theme-sm text-gray-500 dark:text-gray-400">
         <div className="flex items-center justify-center max-w-fit px-4">
           <TrashIcon
             width={20}
@@ -47,7 +49,7 @@ export const DamageTableRow = ({ damage, onDelete }: Props) => {
             className="cursor-pointer hover:text-error-500 dark:hover:text-error-500 text-gray-700 dark:text-gray-400"
           />
         </div>
-      </TableCell>
+      </TableCell>}
     </TableRow>
   );
 };
