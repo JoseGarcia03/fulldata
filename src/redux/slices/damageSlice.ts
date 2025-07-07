@@ -47,7 +47,7 @@ export const DamageSlice = createSlice({
     });
     builder.addCase(getDamage.fulfilled, (state, action) => {
       state.damage = action.payload as DamageProps[];
-      state.loading = true;
+      state.loading = false;
       state.error = "";
     });
     builder.addCase(getDamage.rejected, (state, action) => {

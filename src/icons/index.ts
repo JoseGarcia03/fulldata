@@ -20,6 +20,7 @@ import { ReactComponent as ArrowDownIcon } from "./arrow-down.svg?react";
 import { ReactComponent as ArrowUpIcon } from "./arrow-up.svg?react";
 import { ReactComponent as GroupIcon } from "./group.svg?react";
 import { ReactComponent as HatAdventureIcon } from "./hat-adventure.svg?react";
+import { ReactComponent as LoadingIcon } from "./loading.svg?react";
 
 export {
   SunIcon,
@@ -44,4 +45,5 @@ export {
   ArrowUpIcon,
   GroupIcon,
   HatAdventureIcon,
+  LoadingIcon,
 }

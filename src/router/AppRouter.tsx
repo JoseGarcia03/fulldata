@@ -9,6 +9,8 @@ import { ContractorGuard } from "../guards/ContractorGuard";
 import { AdminRoutes } from "./routes/AdminRoutes";
 import { ContractorRoutes } from "./routes/ContractorRoutes";
 import { useAuthListener } from "../hooks/useAuthListener";
+import { PrivateGuard } from "../guards/PrivateGuard";
+import { PrivateRoutes } from "./routes/PrivateRoutes";
 
 export const AppRouter = () => {
   useAuthListener()
@@ -32,6 +34,10 @@ export const AppRouter = () => {
           {/* Contractor Routes */}
           <Route element={<ContractorGuard />}>
             {ContractorRoutes()}
+          </Route>
+
+          <Route element={<PrivateGuard />}>
+            {PrivateRoutes()}
           </Route>
         </RoutesWithNotFound>
       </Router>

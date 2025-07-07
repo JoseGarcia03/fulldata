@@ -1,0 +1,64 @@
+{
+  "campeones": [
+    {
+      "name": "Zilean",
+      "title": "El Guardián del Tiempo",
+      "role": "Soporte / Mago",
+      "difficulty": "Media",
+      "stats": {
+        "daño": 2,
+        "aguante": 2,
+        "utilidad": 5,
+        "dificultad": 3
+      },
+      "passive": {
+        "name": "Tiempo embotellado",
+        "type": "Pasiva",
+        "cooldown": "90 s",
+        "description": "Zilean convierte el tiempo en experiencia a una tasa de 20 cada 5 s. Puede otorgar esta experiencia al aliado más cercano con el botón de súbditos cuando tiene suficiente para su siguiente subida de nivel. Al hacerlo, ambos ganan esa experiencia. Si Zilean recibe daño o control durante el proceso, se interrumpe."
+      },
+      "abilities": [
+        {
+          "key": "Q",
+          "name": "Bomba de Relojería",
+          "type": "Magia / Control",
+          "cooldown": "0.1 s",
+          "description": "Lanza una bomba a una zona. Se adhiere al primer enemigo que la pisa, explota tras 3 s, infligiendo 75 (+75% AP) de daño mágico a enemigos cercanos. Poner una segunda bomba al mismo objetivo detona inmediatamente la primera, aturdiendo por 1.2 s. Prioriza campeones y objetivos ya bombardeados.",
+          "damage": "75 + 75% Poder de habilidad",
+          "stun_duration": "1.2 s",
+          "charges": "Hasta 2"
+        },
+        {
+          "key": "W",
+          "name": "Flujo Temporal Corrupto",
+          "type": "Potenciación aliada / Mejora",
+          "cooldown": "13 s",
+          "description": "Otorga a Zilean y al aliado más cercano 2.5 s de Tiempo Fugaz: un escudo que bloquea 60 (+45% AP) de daño, velocidad de proyectiles +60%, velocidad de movimiento +25 (6% AP). Mientras Tiempo Fugaz está activo, la velocidad de habilidades básicas de Zilean aumenta en 80%.",
+          "shield": "60 + 45% AP",
+          "movement_speed": "25 + 6% AP",
+          "projectile_speed": "+60%",
+          "bonus_attack_speed": "+80% de velocidad de habilidades básicas"
+        },
+        {
+          "key": "E",
+          "name": "Espejismo Temporal",
+          "type": "Ralentización / Debilitación",
+          "cooldown": "25 s",
+          "description": "Crea un campo de fuerza que dura 2.5 s. Ralentiza a enemigos en el área un 20% + 5% AP y reduce la velocidad de proyectiles enemigos un 80%.",
+          "slow": "20% + 5% AP",
+          "projectile_slow": "80%"
+        },
+        {
+          "key": "R",
+          "name": "Alteración del Tiempo",
+          "type": "Inmunidad a la muerte / Restauración",
+          "cooldown": "90 s",
+          "description": "Coloca una runa en un aliado o en sí mismo durante 5 s. Si recibe daño letal, retrocede en el tiempo y revive con 600 + 200% AP de vida, siendo inalcanzable 3 s antes de resucitar. Si no activa la resurrección, se restaura un 15% del enfriamiento.",
+          "heal_on_rez": "600 + 200% AP",
+          "stasis_duration": "3 s",
+          "cooldown_reduction_on_fail": "15%"
+        }
+      ]
+    }
+  ]
+}

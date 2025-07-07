@@ -90,11 +90,12 @@ export const getDamage = createAsyncThunk<
   async (_, { getState, rejectWithValue }) => {
     const state = getState();
     const displayName = state.auth.displayName;
+    const isAdmin = state.auth.isAdmin;
 
     try {
       const damageRef = collection(db, "averias");
       const q = query(damageRef, where("contractorName", "==", displayName))
-      const damageSnap = await getDocs(q);
+      const damageSnap = await getDocs(isAdmin ? damageRef : q);
 
       return damageSnap.docs.map((doc) => {
         const data = doc.data();

@@ -1,5 +1,10 @@
-import { Link, useLocation  } from "react-router-dom";
-import { ChevronDownIcon, GridIcon, ListClipboardIcon, UserCircleIcon } from "../../icons";
+import { Link, useLocation } from "react-router-dom";
+import {
+  ChevronDownIcon,
+  GridIcon,
+  ListClipboardIcon,
+  UserCircleIcon,
+} from "../../icons";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSidebar } from "../../hooks/useSidebar";
 import { useAppSelector } from "../../hooks/useRedux";
@@ -15,20 +20,25 @@ const navItemsAdmin: NavItem[] = [
   {
     icon: <GridIcon />,
     name: "Dashboard",
-    path:"/dashboard"
+    path: "/dashboard",
   },
   {
     icon: <UserCircleIcon />,
     name: "Contratistas",
     path: "/contractors",
-  }
+  },
+  {
+    icon: <ListClipboardIcon />,
+    name: "Averias",
+    path: "/damage",
+  },
 ];
 
 const navItemsContractor: NavItem[] = [
   {
     icon: <ListClipboardIcon />,
     name: "Averias",
-    path:"/damage"
+    path: "/damage",
   },
 ];
 
@@ -100,7 +110,7 @@ export const AppSidebar = () => {
     });
   };
 
-    const renderMenuItems = (items: NavItem[], menuType: "main" | "others") => (
+  const renderMenuItems = (items: NavItem[], menuType: "main" | "others") => (
     <ul className="flex flex-col gap-4">
       {items.map((nav, index) => (
         <li key={nav.name}>
@@ -221,23 +231,22 @@ export const AppSidebar = () => {
 
   return (
     <aside
-    className={`fixed mt-16 flex flex-col lg:mt-0 top-0 px-5 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-50 border-r border-gray-200
-      ${
-        isExpanded || isMobileOpen
-          ? "w-[290px]"
-          : "w-[90px]"
-      }
+      className={`fixed mt-16 flex flex-col lg:mt-0 top-0 px-5 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-50 border-r border-gray-200
+      ${isExpanded || isMobileOpen ? "w-[290px]" : "w-[90px]"}
       ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
       lg:translate-x-0`}
-    onMouseLeave={() => setIsHovered(false)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <div
         className={`py-4 flex ${
           !isExpanded ? "lg:justify-center" : "justify-start"
         }`}
       >
-        <Link to={ auth.isAdmin ? "/dashboard" : "/tickets" } className="flex items-center gap-2">
-        {isExpanded || isMobileOpen ? (
+        <Link
+          to={auth.isAdmin ? "/dashboard" : "/tickets"}
+          className="flex items-center gap-2"
+        >
+          {isExpanded || isMobileOpen ? (
             <>
               <img
                 className="dark:hidden"
@@ -270,18 +279,19 @@ export const AppSidebar = () => {
             <div>
               <h2
                 className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
-                  !isExpanded
-                    ? "lg:justify-center"
-                    : "justify-start"
+                  !isExpanded ? "lg:justify-center" : "justify-start"
                 }`}
               >
                 Menu
               </h2>
-              {renderMenuItems(auth.isAdmin ? navItemsAdmin : navItemsContractor, "main")}
+              {renderMenuItems(
+                auth.isAdmin ? navItemsAdmin : navItemsContractor,
+                "main"
+              )}
             </div>
           </div>
         </nav>
       </div>
     </aside>
-  )
-}
+  );
+};
