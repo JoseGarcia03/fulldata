@@ -8,6 +8,10 @@ export default function MaterialsGrowthGauge() {
   const [filter] = useState<string>(""); // por si quieres filtrar por tipo
 
   const { thisCount, prevCount, pct } = useMemo(() => {
+    if (!materials || materials.length === 0) {
+      return { thisCount: 0, prevCount: 0, pct: 0 };
+    }
+
     const now = new Date();
     const prevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
     let thisC = 0,
