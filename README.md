@@ -1,69 +1,74 @@
-# React + TypeScript + Vite
+# FULLDATA
+Conectados contigo.
+Sistema interno de gestión para empresas de telecomunicaciones.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![videotube_home_desktop](./public/images/views/home_screen_desktop.png)
 
-Currently, two official plugins are available:
+## 📦 Despliegue
+- [videoTube](https://fulldata.vercel.app/signin)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧩 Descripción del Proyecto
+FULLDATA es una plataforma web diseñada para empresas del sector telecomunicaciones, con el objetivo de centralizar la operación técnica y administrativa. Permite registrar visitas técnicas, materiales utilizados y gestionar contratistas, todo dentro de una interfaz moderna y responsiva.
 
-## Expanding the ESLint configuration
+## Stack de Tecnología 🛠️
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+ - React 19 con TypeScript — Interfaz moderna, segura y tipada.
+ - Redux Toolkit — Manejo de estado global eficiente.
+ - TailwindCSS — Estilos rápidos y consistentes.
+ - Firebase — Autenticación y backend en tiempo real.
+ - ApexCharts — Visualización de datos y métricas.
+ - Vite — Bundler veloz para desarrollo moderno.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Estructura de carpetas 📂
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+├── functions
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── src
+│   ├── tsconfig.dev.json
+│   └── tsconfig.json
+├── index.html
+├── package.json
+├── public
+│   ├── favicon
+│   └── images
+├── README.md
+├── src
+│   ├── AppHookContainer.tsx
+│   ├── assets
+│   ├── components
+│   ├── context
+│   ├── firebase
+│   ├── guards
+│   ├── helpers
+│   ├── hooks
+│   ├── icons
+│   ├── index.css
+│   ├── main.tsx
+│   ├── pages
+│   ├── providers
+│   ├── redux
+│   ├── router
+│   ├── svg.d.ts
+│   └── vite-env.d.ts
+├── firebase.json
+├── bun.lock
+├── eslint.config.js
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── vercel.json
+└── vite.config.ts
+directory: 49 file: 148
 ```
+## Conceptos Técnicos ⚙️
+
+Estaremos practicando varios conceptos:
+
+ 1. Diseño Responsive
+ 2. Renderizado condicional según rol del usuario.
+ 3. Manejo de rutas protegidas con react-router-dom.
+ 4. Control de formularios, fechas y validaciones.
+ 5. Implementación de notificaciones con react-hot-toast.
+ 6. Dashboard con gráficas dinámicas de ApexCharts.
+ 7. [Promesas](https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Using_promises)
